@@ -8,15 +8,18 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { errorInterceptor } from './_interceptors/error.interceptor';
+import { jwtInterceptor } from './_interceptors/jwt.interceptor';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), 
     provideClientHydration(),
     provideHttpClient(
-      withInterceptors([errorInterceptor])
+      withInterceptors([errorInterceptor, jwtInterceptor])
     ),
     importProvidersFrom(BsDropdownModule.forRoot()),
+    importProvidersFrom(TabsModule.forRoot()),
     provideAnimations(),
     provideToastr()
   ]
