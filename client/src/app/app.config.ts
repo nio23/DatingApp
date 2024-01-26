@@ -12,6 +12,7 @@ import { jwtInterceptor } from './_interceptors/jwt.interceptor';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { loadingInterceptor } from './_interceptors/loading.interceptor';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     })),
     importProvidersFrom(NgxSpinnerModule.forRoot({
       type: 'line-scale-party'
-    }))
+    })),
+    importProvidersFrom(BsDatepickerModule.forRoot())
   ]
 };
