@@ -13,6 +13,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { loadingInterceptor } from './_interceptors/loading.interceptor';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { TimeagoModule } from 'ngx-timeago';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,6 +33,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule.forRoot({
       type: 'line-scale-party'
     })),
-    importProvidersFrom(BsDatepickerModule.forRoot())
+    importProvidersFrom(BsDatepickerModule.forRoot()),
+    importProvidersFrom(PaginationModule.forRoot()),
+    importProvidersFrom(ButtonsModule.forRoot()),
+    importProvidersFrom(TimeagoModule.forRoot())
   ]
 };
