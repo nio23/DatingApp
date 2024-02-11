@@ -16,6 +16,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,6 +37,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BsDatepickerModule.forRoot()),
     importProvidersFrom(PaginationModule.forRoot()),
     importProvidersFrom(ButtonsModule.forRoot()),
-    importProvidersFrom(TimeagoModule.forRoot())
+    importProvidersFrom(TimeagoModule.forRoot(), ModalModule.forRoot())
   ]
 };
