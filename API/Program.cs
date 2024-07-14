@@ -4,9 +4,7 @@ using API.Extensions;
 using API.Middleware;
 using API.SignalR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.StaticFiles.Infrastructure;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);  
 
@@ -22,7 +20,7 @@ if (builder.Environment.IsDevelopment())
     connString = builder.Configuration.GetConnectionString("DefaultConnection");
 else 
 {
-// Use connection string provided at runtime by FlyIO.
+        // Use connection string provided at runtime by FlyIO.
         var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
         // Parse connection URL to connection string for Npgsql
@@ -36,20 +34,18 @@ else
         var pgHost = pgHostPort.Split(":")[0];
         var pgPort = pgHostPort.Split(":")[1];
 
-        connString = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};";
+        connString = $"Server={pgHost};Port={pgPort};Database={pgDb};User Id={pgUser};Password={pgPass};SSL Mode=Disable;";
 }
 
-builder.Services.AddDbContext<DataContext>(opt =>
-{
+
+builder.Services.AddDbContext<DataContext>(opt =>{
     opt.UseNpgsql(connString);
 });
-
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
-
 
 app.UseCors(builder => builder
     .AllowAnyHeader()
@@ -61,19 +57,13 @@ app.UseCors(builder => builder
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseFileServer(new FileServerOptions{
-    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "wwwroot", "browser"))
-});
-
-
-
-
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
 app.MapFallbackToController("Index", "Fallback");
-
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;

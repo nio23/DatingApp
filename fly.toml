@@ -1,28 +1,26 @@
-# fly.toml app configuration file generated for mydatingapp-dry-resonance-7019 on 2024-04-20T17:35:30+03:00
+# fly.toml app configuration file generated for mydatingapp on 2024-07-14T08:04:19+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'mydatingapp-dry-resonance-7019'
+app = 'mydatingapp'
 primary_region = 'otp'
 
 [build]
   image = 'dio23/datingapp:latest'
 
 [env]
-  ASPNETCORE_URLS="http://+:8080"
-  CloudinarySettings__CloudName="dcf1ysg6g"
-  CloudinarySettings__ApiKey="842387427725735"
+  ASPNETCORE_URLS = 'http://+:8080'
+  CloudinarySettings__ApiKey = '842387427725735'
+  CloudinarySettings__CloudName = 'dcf1ysg6g'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = false
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
-  cpu_kind = 'shared'
-  cpus = 1
+  size = 'shared-cpu-1x'
